@@ -17,7 +17,9 @@ class Deck:
         return len(self._cards)
 
     def pick(self, number_of_cards):
-        raise NotImplementedError("You need to implement this")
+        picked_cards = self._cards[:number_of_cards]
+        del self._cards[:number_of_cards]
+        return picked_cards
 
 
 class NotEnoughCardsException(Exception):
