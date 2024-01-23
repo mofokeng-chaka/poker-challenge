@@ -16,7 +16,7 @@ class HandRank(ABC):
 
     @abstractmethod
     def compare_same_rank(self, other):
-        pass
+        return 0
 
     @abstractmethod
     def describe_hand(self):
