@@ -1,7 +1,19 @@
 import unittest
 
 from pokerhands.card import Card
-from pokerhands.handrank.ranks import *
+from pokerhands.handrank.ranks import (
+    HighCard,
+    OnePair,
+    TwoPair,
+    ThreeOfAKind,
+    StraightFlush,
+    Straight,
+    Flush,
+    FourOfAKind,
+    FullHouse,
+    RoyalFlush,
+    NotRankableHandRank,
+)
 from pokerhands.rank import Rank
 from pokerhands.suit import Suit
 
