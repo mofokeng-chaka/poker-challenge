@@ -158,7 +158,7 @@ class HandTest(unittest.TestCase):
         straight_cards = [
             Card(Rank.NINE, Suit.CLUBS),
             Card(Rank.KING, Suit.HEARTS),
-            Card(Rank.QUEEN, Suit.CLUBS),
+            Card(Rank.QUEEN, Suit.DIAMONDS),
             Card(Rank.JACK, Suit.CLUBS),
             Card(Rank.TEN, Suit.CLUBS),
         ]
@@ -170,7 +170,7 @@ class HandTest(unittest.TestCase):
         low_straight_cards = [
             Card(Rank.NINE, Suit.CLUBS),
             Card(Rank.EIGHT, Suit.HEARTS),
-            Card(Rank.QUEEN, Suit.CLUBS),
+            Card(Rank.QUEEN, Suit.DIAMONDS),
             Card(Rank.JACK, Suit.CLUBS),
             Card(Rank.TEN, Suit.CLUBS),
         ]
@@ -180,7 +180,7 @@ class HandTest(unittest.TestCase):
         high_straight_cards = [
             Card(Rank.NINE, Suit.CLUBS),
             Card(Rank.KING, Suit.HEARTS),
-            Card(Rank.QUEEN, Suit.CLUBS),
+            Card(Rank.QUEEN, Suit.DIAMONDS),
             Card(Rank.JACK, Suit.CLUBS),
             Card(Rank.TEN, Suit.CLUBS),
         ]
