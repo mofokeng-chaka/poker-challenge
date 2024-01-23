@@ -1,5 +1,6 @@
 from copy import deepcopy
 from collections import Counter
+from itertools import combinations
 from .rank import Rank
 from .handrank.ranks import (
     HighCard,
@@ -193,3 +194,27 @@ class Hand:
         else:
             # High Card
             return 1
+
+    def find_best_hand(self):
+        # Ensure the input has at least 5 cards
+        if len(self._cards) < 5:
+            raise ValueError("Not enough cards to form a hand")
+
+        # Generate all combinations of 5 cards
+        all_combinations = list(combinations(self._cards, 5))
+
+        # Initialize variables to store the best hand and its rank
+        best_hand = None
+        best_rank = float('-inf')
+
+        # Iterate through all combinations and find the best hand
+        for combo in all_combinations:
+            current_hand = Hand(list(combo))
+            current_rank = current_hand.get_hand_rank()
+
+            # Update if the current hand has a higher rank
+            if current_rank > best_rank:
+                best_rank = current_rank
+                best_hand = current_hand
+
+        return best_hand
