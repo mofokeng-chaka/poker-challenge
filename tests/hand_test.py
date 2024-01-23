@@ -191,6 +191,44 @@ class HandTest(unittest.TestCase):
         self.assertEqual("Straight, king high", high_straight_hand.describe_hand_rank())
         self.assertTrue(low_straight_hand.compare_to(high_straight_hand) < 0)
 
+    def test_best_hand_straight_flush(self):
+        # Test when the best hand is a royal flush of hearts
+        cards = [
+            Card(Rank.TEN, Suit.HEARTS),
+            Card(Rank.JACK, Suit.HEARTS),
+            Card(Rank.QUEEN, Suit.HEARTS),
+            Card(Rank.KING, Suit.HEARTS),
+            Card(Rank.ACE, Suit.HEARTS),
+            Card(Rank.FIVE, Suit.CLUBS),
+            Card(Rank.SIX, Suit.CLUBS),
+        ]
+        best_hand = Hand(cards).find_best_hand()
+        self.assertEqual(best_hand.describe_hand_rank(), "Royal flush of hearts")
+
+    def test_best_hand_full_house(self):
+        # Test when the best hand is a full house, queens over tens
+        cards = [
+            Card(Rank.TEN, Suit.HEARTS),
+            Card(Rank.TEN, Suit.DIAMONDS),
+            Card(Rank.QUEEN, Suit.HEARTS),
+            Card(Rank.QUEEN, Suit.CLUBS),
+            Card(Rank.QUEEN, Suit.SPADES),
+            Card(Rank.FIVE, Suit.CLUBS),
+            Card(Rank.SIX, Suit.CLUBS),
+        ]
+        best_hand = Hand(cards).find_best_hand()
+        self.assertEqual(best_hand.describe_hand_rank(), "Full house, queens over tens")
+
+    def test_not_enough_cards(self):
+        # Test when there are not enough cards to form a hand
+        cards = [
+            Card(Rank.TEN, Suit.HEARTS),
+            Card(Rank.JACK, Suit.HEARTS),
+            Card(Rank.QUEEN, Suit.HEARTS),
+        ]
+        with self.assertRaises(ValueError):
+            Hand(cards).find_best_hand()
+
 
 if __name__ == "__main__":
     unittest.main()
