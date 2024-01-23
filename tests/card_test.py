@@ -47,5 +47,5 @@ class CardTest(unittest.TestCase):
         self.assertNotEqual(king_hearts_1, queen_hearts)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

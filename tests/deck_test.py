@@ -1,5 +1,5 @@
 import unittest
-from pokerhands.deck import Deck, NotEnoughCardsException
+from pokerhands.deck import Deck
 
 
 class DeckTest(unittest.TestCase):
@@ -26,5 +26,5 @@ class DeckTest(unittest.TestCase):
         self.assertEqual(0, deck.number_of_cards())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

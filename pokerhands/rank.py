@@ -32,4 +32,3 @@ class Rank(Enum):
 
     def compare_to(self, other):
         return self.value - other.value
-

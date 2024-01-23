@@ -1,7 +1,19 @@
 from copy import deepcopy
 from collections import Counter
 from .rank import Rank
-from .handrank.ranks import HighCard, OnePair, TwoPair, ThreeOfAKind, StraightFlush, Straight, Flush, FourOfAKind, FullHouse, RoyalFlush, NotRankableHandRank
+from .handrank.ranks import (
+    HighCard,
+    OnePair,
+    TwoPair,
+    ThreeOfAKind,
+    StraightFlush,
+    Straight,
+    Flush,
+    FourOfAKind,
+    FullHouse,
+    RoyalFlush,
+    NotRankableHandRank,
+)
 
 
 class Hand:
@@ -61,7 +73,10 @@ class Hand:
 
     @staticmethod
     def _contains_five_cards_in_sequence(cards):
-        return all(cards[i].rank.value == cards[i - 1].rank.value + 1 for i in range(1, len(cards)))
+        return all(
+            cards[i].rank.value == cards[i - 1].rank.value + 1
+            for i in range(1, len(cards))
+        )
 
     def is_straight_flush(self, cards) -> bool:
         # The hand contains five cards of the same suit
@@ -69,7 +84,10 @@ class Hand:
             return False
 
         # Also the hand contains five cards of sequential rank and the highest card is ACE
-        return self._contains_five_cards_in_sequence(cards) and not max(cards, key=lambda card: card.rank).rank == Rank.ACE
+        return (
+            self._contains_five_cards_in_sequence(cards)
+            and not max(cards, key=lambda card: card.rank).rank == Rank.ACE
+        )
 
     def is_royal_flush(self, cards) -> bool:
         # The hand contains five cards of the same suit

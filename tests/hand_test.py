@@ -7,7 +7,6 @@ from pokerhands.deck import Deck
 
 
 class HandTest(unittest.TestCase):
-
     def test_get_number_of_cards(self):
         deck = Deck()
         hand = Hand(deck.pick(5))
@@ -23,7 +22,9 @@ class HandTest(unittest.TestCase):
             Card(Rank.KING, Suit.CLUBS),
         ]
         hand_two = Hand(cards)
-        self.assertEqual("An unrankable hand with 2 card(s)", hand_two.describe_hand_rank())
+        self.assertEqual(
+            "An unrankable hand with 2 card(s)", hand_two.describe_hand_rank()
+        )
 
         cards.append(Card(Rank.TWO, Suit.CLUBS))
         cards.append(Card(Rank.QUEEN, Suit.CLUBS))
@@ -31,7 +32,9 @@ class HandTest(unittest.TestCase):
         cards.append(Card(Rank.TEN, Suit.CLUBS))
 
         hand_six = Hand(cards)
-        self.assertEqual("An unrankable hand with 6 card(s)", hand_six.describe_hand_rank())
+        self.assertEqual(
+            "An unrankable hand with 6 card(s)", hand_six.describe_hand_rank()
+        )
         self.assertEqual(0, hand_two.compare_to(hand_six))
 
     def test_royal_flush(self):
@@ -188,5 +191,6 @@ class HandTest(unittest.TestCase):
         self.assertEqual("Straight, king high", high_straight_hand.describe_hand_rank())
         self.assertTrue(low_straight_hand.compare_to(high_straight_hand) < 0)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

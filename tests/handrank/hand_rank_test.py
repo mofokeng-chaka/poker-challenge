@@ -7,7 +7,6 @@ from pokerhands.suit import Suit
 
 
 class HandRankTest(unittest.TestCase):
-
     # TODO: Automate these comparisons
     def test_compare_to(self):
         royal_flush_clubs = RoyalFlush(Suit.CLUBS)
@@ -59,22 +58,26 @@ class HandRankTest(unittest.TestCase):
         flush_queen_three_2 = Flush(flush_queen_three_cards)
         self.assertEqual(0, flush_queen_three.compare_to(flush_queen_three_2))
 
-        flush_queen_two = Flush([
-            Card(Rank.NINE, Suit.HEARTS),
-            Card(Rank.TWO, Suit.HEARTS),
-            Card(Rank.QUEEN, Suit.HEARTS),
-            Card(Rank.JACK, Suit.HEARTS),
-            Card(Rank.TEN, Suit.HEARTS),
-        ])
+        flush_queen_two = Flush(
+            [
+                Card(Rank.NINE, Suit.HEARTS),
+                Card(Rank.TWO, Suit.HEARTS),
+                Card(Rank.QUEEN, Suit.HEARTS),
+                Card(Rank.JACK, Suit.HEARTS),
+                Card(Rank.TEN, Suit.HEARTS),
+            ]
+        )
         self.assertTrue(flush_queen_three.compare_to(flush_queen_two) > 0)
 
-        flush_king_two = Flush([
-            Card(Rank.NINE, Suit.CLUBS),
-            Card(Rank.TWO, Suit.CLUBS),
-            Card(Rank.KING, Suit.CLUBS),
-            Card(Rank.JACK, Suit.CLUBS),
-            Card(Rank.TEN, Suit.CLUBS),
-        ])
+        flush_king_two = Flush(
+            [
+                Card(Rank.NINE, Suit.CLUBS),
+                Card(Rank.TWO, Suit.CLUBS),
+                Card(Rank.KING, Suit.CLUBS),
+                Card(Rank.JACK, Suit.CLUBS),
+                Card(Rank.TEN, Suit.CLUBS),
+            ]
+        )
         self.assertTrue(flush_king_two.compare_to(flush_queen_three) > 0)
         self.assertTrue(flush_king_two.compare_to(flush_queen_two) > 0)
 
@@ -104,7 +107,9 @@ class HandRankTest(unittest.TestCase):
         self.assertTrue(flush_queen_three.compare_to(two_pair_ten_five_three) > 0)
         self.assertTrue(straight_king.compare_to(two_pair_ten_five_three) > 0)
         two_pair_ten_five_three_2 = TwoPair(Rank.TEN, Rank.FIVE, Rank.THREE)
-        self.assertEqual(0, two_pair_ten_five_three_2.compare_to(two_pair_ten_five_three))
+        self.assertEqual(
+            0, two_pair_ten_five_three_2.compare_to(two_pair_ten_five_three)
+        )
 
         two_pair_ten_five_two = TwoPair(Rank.TEN, Rank.FIVE, Rank.TWO)
         self.assertTrue(two_pair_ten_five_three.compare_to(two_pair_ten_five_two) > 0)
@@ -136,13 +141,15 @@ class HandRankTest(unittest.TestCase):
         one_pair_ten_943 = OnePair(Rank.NINE, [Rank.SEVEN, Rank.FOUR, Rank.THREE])
         self.assertTrue(one_pair_ten_763.compare_to(one_pair_ten_943) > 0)
 
-        high_ace_queen_975 = HighCard([
-            Card(Rank.ACE, Suit.CLUBS),
-            Card(Rank.QUEEN, Suit.CLUBS),
-            Card(Rank.NINE, Suit.DIAMONDS),
-            Card(Rank.SEVEN, Suit.CLUBS),
-            Card(Rank.FIVE, Suit.CLUBS),
-        ])
+        high_ace_queen_975 = HighCard(
+            [
+                Card(Rank.ACE, Suit.CLUBS),
+                Card(Rank.QUEEN, Suit.CLUBS),
+                Card(Rank.NINE, Suit.DIAMONDS),
+                Card(Rank.SEVEN, Suit.CLUBS),
+                Card(Rank.FIVE, Suit.CLUBS),
+            ]
+        )
         self.assertTrue(royal_flush_clubs.compare_to(high_ace_queen_975) > 0)
         self.assertTrue(straight_flush_ten.compare_to(high_ace_queen_975) > 0)
         self.assertTrue(four_of_a_kind_queen.compare_to(high_ace_queen_975) > 0)
@@ -152,22 +159,26 @@ class HandRankTest(unittest.TestCase):
         self.assertTrue(two_pair_ten_five_three.compare_to(high_ace_queen_975) > 0)
         self.assertTrue(one_pair_ten_765.compare_to(high_ace_queen_975) > 0)
 
-        high_ace_queen_975_2 = HighCard([
-            Card(Rank.ACE, Suit.CLUBS),
-            Card(Rank.QUEEN, Suit.CLUBS),
-            Card(Rank.NINE, Suit.DIAMONDS),
-            Card(Rank.SEVEN, Suit.CLUBS),
-            Card(Rank.FIVE, Suit.CLUBS),
-        ])
+        high_ace_queen_975_2 = HighCard(
+            [
+                Card(Rank.ACE, Suit.CLUBS),
+                Card(Rank.QUEEN, Suit.CLUBS),
+                Card(Rank.NINE, Suit.DIAMONDS),
+                Card(Rank.SEVEN, Suit.CLUBS),
+                Card(Rank.FIVE, Suit.CLUBS),
+            ]
+        )
         self.assertEqual(0, high_ace_queen_975.compare_to(high_ace_queen_975_2))
 
-        high_ace_queen_875 = HighCard([
-            Card(Rank.ACE, Suit.CLUBS),
-            Card(Rank.QUEEN, Suit.CLUBS),
-            Card(Rank.EIGHT, Suit.DIAMONDS),
-            Card(Rank.SEVEN, Suit.CLUBS),
-            Card(Rank.FIVE, Suit.CLUBS),
-        ])
+        high_ace_queen_875 = HighCard(
+            [
+                Card(Rank.ACE, Suit.CLUBS),
+                Card(Rank.QUEEN, Suit.CLUBS),
+                Card(Rank.EIGHT, Suit.DIAMONDS),
+                Card(Rank.SEVEN, Suit.CLUBS),
+                Card(Rank.FIVE, Suit.CLUBS),
+            ]
+        )
         self.assertTrue(high_ace_queen_975.compare_to(high_ace_queen_875) > 0)
 
         not_rankable_0 = NotRankableHandRank(None)
@@ -189,14 +200,19 @@ class HandRankTest(unittest.TestCase):
     def test_flush(self):
         self.assertRaises(ValueError, lambda: Flush(None))
         self.assertRaises(ValueError, lambda: Flush([]))
-        self.assertRaises(ValueError, lambda: Flush([
-            Card(Rank.NINE, Suit.CLUBS),
-            Card(Rank.THREE, Suit.CLUBS),
-            Card(Rank.QUEEN, Suit.DIAMONDS),
-            Card(Rank.JACK, Suit.DIAMONDS),
-            Card(Rank.TEN, Suit.CLUBS),
-            Card(Rank.TWO, Suit.CLUBS),
-        ]))
+        self.assertRaises(
+            ValueError,
+            lambda: Flush(
+                [
+                    Card(Rank.NINE, Suit.CLUBS),
+                    Card(Rank.THREE, Suit.CLUBS),
+                    Card(Rank.QUEEN, Suit.DIAMONDS),
+                    Card(Rank.JACK, Suit.DIAMONDS),
+                    Card(Rank.TEN, Suit.CLUBS),
+                    Card(Rank.TWO, Suit.CLUBS),
+                ]
+            ),
+        )
 
     def test_straight(self):
         self.assertRaises(ValueError, lambda: Straight(None))
@@ -214,25 +230,36 @@ class HandRankTest(unittest.TestCase):
         self.assertRaises(ValueError, lambda: OnePair(Rank.NINE, None))
         self.assertRaises(ValueError, lambda: OnePair(None, []))
         self.assertRaises(ValueError, lambda: OnePair(Rank.NINE, []))
-        self.assertRaises(ValueError, lambda: OnePair(Rank.NINE, [
-            Rank.ACE,
-            Rank.QUEEN,
-            Rank.EIGHT,
-            Rank.SEVEN,
-        ]))
+        self.assertRaises(
+            ValueError,
+            lambda: OnePair(
+                Rank.NINE,
+                [
+                    Rank.ACE,
+                    Rank.QUEEN,
+                    Rank.EIGHT,
+                    Rank.SEVEN,
+                ],
+            ),
+        )
 
     def test_high_card(self):
         self.assertRaises(ValueError, lambda: HighCard(None))
         self.assertRaises(ValueError, lambda: HighCard([]))
-        self.assertRaises(ValueError, lambda: HighCard([
-            Card(Rank.ACE, Suit.CLUBS),
-            Card(Rank.QUEEN, Suit.CLUBS),
-            Card(Rank.EIGHT, Suit.DIAMONDS),
-            Card(Rank.SEVEN, Suit.CLUBS),
-            Card(Rank.FIVE, Suit.CLUBS),
-            Card(Rank.TWO, Suit.CLUBS),
-        ]))
+        self.assertRaises(
+            ValueError,
+            lambda: HighCard(
+                [
+                    Card(Rank.ACE, Suit.CLUBS),
+                    Card(Rank.QUEEN, Suit.CLUBS),
+                    Card(Rank.EIGHT, Suit.DIAMONDS),
+                    Card(Rank.SEVEN, Suit.CLUBS),
+                    Card(Rank.FIVE, Suit.CLUBS),
+                    Card(Rank.TWO, Suit.CLUBS),
+                ]
+            ),
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
