@@ -37,14 +37,23 @@ class CardTest(unittest.TestCase):
 
     def test_equals(self):
         king_hearts_1 = Card(Rank.KING, Suit.HEARTS)
+        self.assertEqual(king_hearts_1, king_hearts_1)
+
         king_hearts_2 = Card(Rank.KING, Suit.HEARTS)
+
+        self.assertTrue(king_hearts_1.suit.__eq__(king_hearts_2.suit))
         self.assertEqual(king_hearts_1, king_hearts_2)
 
         king_clubs = Card(Rank.KING, Suit.CLUBS)
         self.assertNotEqual(king_hearts_1, king_clubs)
 
         queen_hearts = Card(Rank.QUEEN, Suit.HEARTS)
+
+        self.assertTrue(queen_hearts.suit.__lt__(king_clubs.suit))
+        self.assertTrue(queen_hearts.suit.compare_to(king_clubs.suit) < 0)
         self.assertNotEqual(king_hearts_1, queen_hearts)
+
+        self.assertNotEqual(king_hearts_1, None)
 
 
 if __name__ == "__main__":

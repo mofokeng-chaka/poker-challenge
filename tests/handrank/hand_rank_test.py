@@ -1,6 +1,8 @@
 import unittest
+from unittest.mock import patch, Mock
 
 from pokerhands.card import Card
+from pokerhands.handrank.hand_rank import HandRank
 from pokerhands.handrank.ranks import (
     HighCard,
     OnePair,
@@ -20,6 +22,12 @@ from pokerhands.suit import Suit
 
 class HandRankTest(unittest.TestCase):
     # TODO: Automate these comparisons
+    @patch.multiple(HandRank, __abstractmethods__=set())
+    def test_compare_same_rank(self):
+        hand_rank = HandRank(Mock())
+
+        self.assertEqual(0, hand_rank.compare_same_rank(Mock()))
+
     def test_compare_to(self):
         royal_flush_clubs = RoyalFlush(Suit.CLUBS)
         royal_flush_spades = RoyalFlush(Suit.SPADES)
@@ -197,6 +205,12 @@ class HandRankTest(unittest.TestCase):
         not_rankable_1 = NotRankableHandRank([])
         self.assertEqual(0, not_rankable_0.compare_to(not_rankable_1))
         self.assertEqual(0, not_rankable_0.compare_same_rank(not_rankable_1))
+
+    @patch.multiple(HandRank, __abstractmethods__=set())
+    def test_describe_hand(self):
+        hand_rank = HandRank(Mock())
+
+        self.assertEqual(hand_rank.describe_hand(), None)
 
     def test_straight_flush(self):
         self.assertRaises(ValueError, lambda: StraightFlush(None))

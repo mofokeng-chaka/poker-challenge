@@ -79,6 +79,7 @@ class HandTest(unittest.TestCase):
             Card(Rank.TEN, Suit.CLUBS),
         ]
         hand = Hand(cards)
+        self.assertFalse(hand.is_straight(), "The hand is not a straight rank")
         self.assertEqual("Flush, queen high", hand.describe_hand_rank())
 
     def test_straight(self):
