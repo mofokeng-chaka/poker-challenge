@@ -46,6 +46,7 @@ class HandTest(unittest.TestCase):
             Card(Rank.TEN, Suit.CLUBS),
         ]
         hand = Hand(cards)
+        self.assertEqual(10, hand.get_hand_rank())
         self.assertEqual("Royal flush of clubs", hand.describe_hand_rank())
 
     def test_four_of_a_kind(self):
@@ -57,6 +58,7 @@ class HandTest(unittest.TestCase):
             Card(Rank.TEN, Suit.CLUBS),
         ]
         hand = Hand(cards)
+        self.assertEqual(8, hand.get_hand_rank())
         self.assertEqual("Four of a kind of nines", hand.describe_hand_rank())
 
     def test_full_house(self):
@@ -91,6 +93,7 @@ class HandTest(unittest.TestCase):
             Card(Rank.TEN, Suit.CLUBS),
         ]
         hand = Hand(cards)
+        self.assertEqual(5, hand.get_hand_rank())
         self.assertEqual("Straight, king high", hand.describe_hand_rank())
 
     def test_straight_flush(self):
@@ -102,6 +105,7 @@ class HandTest(unittest.TestCase):
             Card(Rank.TEN, Suit.HEARTS),
         ]
         hand = Hand(cards)
+        self.assertEqual(9, hand.get_hand_rank())
         self.assertEqual("Straight flush, king high", hand.describe_hand_rank())
 
     def test_three_of_a_kind(self):
@@ -191,6 +195,30 @@ class HandTest(unittest.TestCase):
         high_straight_hand = Hand(high_straight_cards)
         self.assertEqual("Straight, king high", high_straight_hand.describe_hand_rank())
         self.assertTrue(low_straight_hand.compare_to(high_straight_hand) < 0)
+
+    def test_high_card_compared_to_a_pair(self):
+        high_card_cards = [
+            Card(Rank.THREE, Suit.CLUBS),
+            Card(Rank.NINE, Suit.HEARTS),
+            Card(Rank.TEN, Suit.DIAMONDS),
+            Card(Rank.SIX, Suit.SPADES),
+            Card(Rank.TWO, Suit.CLUBS),
+        ]
+        high_card_hand = Hand(high_card_cards)
+        self.assertEqual(
+            "High card ten of diamonds", high_card_hand.describe_hand_rank()
+        )
+
+        pair_cards = [
+            Card(Rank.NINE, Suit.CLUBS),
+            Card(Rank.TEN, Suit.HEARTS),
+            Card(Rank.TEN, Suit.DIAMONDS),
+            Card(Rank.SIX, Suit.SPADES),
+            Card(Rank.TWO, Suit.CLUBS),
+        ]
+        pair_hand = Hand(pair_cards)
+        self.assertEqual("One pair of tens", pair_hand.describe_hand_rank())
+        self.assertTrue(high_card_hand.compare_to(pair_hand) < 0)
 
     def test_best_hand_straight_flush(self):
         # Test when the best hand is a royal flush of hearts
