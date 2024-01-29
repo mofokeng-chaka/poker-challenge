@@ -197,4 +197,3 @@ class NotRankableHandRank(HandRank):
 
     def describe_hand(self):
         return "An unrankable hand with {} card(s)".format(len(self.cards))
-

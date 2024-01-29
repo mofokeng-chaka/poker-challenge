@@ -202,7 +202,7 @@ class Hand:
 
         # Initialize variables to store the best hand and its rank
         best_hand = None
-        best_rank = float('-inf')
+        best_rank = float("-inf")
 
         # Iterate through all combinations and find the best hand
         for combo in all_combinations:
